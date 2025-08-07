@@ -1,0 +1,6 @@
+Project Log
+
+1. Initially started developing the application in Python.
+2. Switched to using React - Vite for the frontend.
+3. Removed badges due to time constraints.
+4. Changed the data structure from using objects to classes in order to meet the project requirements.
