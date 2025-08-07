@@ -7,6 +7,7 @@ import { Navbar } from "./Navbar";
 import { usePageStore } from "./page.store";
 import { AppWindow } from "lucide-react";
 import { Subject } from "./pages/Subject/Subject";
+import "./App.css";
 
 // Main App component that renders the Navbar and the current page based on the selected subject or home
 function App() {
@@ -14,7 +15,7 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="bg-zinc-900 text-white h-screen w-screen bg-[url(/src/assets/bg.jpg)] bg-repeat bg-fixed animate-moving-bg"></div>
+      <div className="animate-moving-bg bg-zinc-900 text-white h-screen w-screen bg-[url(/src/assets/bg.jpg)] bg-repeat bg-fixed animate-moving-bg"></div>
       {/* if window closed then just show an icon to reopen it */}
       {windowClosed ? (
         <div
