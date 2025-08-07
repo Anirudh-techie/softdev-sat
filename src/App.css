@@ -1,0 +1,45 @@
+/* Author: Ani 
+   Date: 7 August 2025
+   Description: Styles for the moving background animation used in the application
+ */
+
+:root {
+   --bg-speed-x: 3;
+   --bg-speed-y: 2;
+   --bg-base-duration: 64s;
+   --bg-size: 50rem;
+}
+
+@keyframes moving-bg-x {
+   from {
+      background-position-x: 0px;
+      filter: contrast(1.1) brightness(0.6) saturate(1.2) blur(2px) hue-rotate(0deg);
+   }
+
+   50% {
+      filter: contrast(1) brightness(0.9) saturate(1.2) blur(2px) hue-rotate(calc(180deg * var(--bg-speed-x)));
+   }
+
+   to {
+      background-position-x: calc(-1 * var(--bg-size));
+      filter: contrast(1.1) brightness(0.6) saturate(1.2) blur(2px) hue-rotate(calc(360deg * var(--bg-speed-x)));
+   }
+}
+
+@keyframes moving-bg-y {
+   from {
+      background-position-y: 0px;
+   }
+
+   to {
+      background-position-y: calc(-1 * var(--bg-size));
+   }
+}
+
+.animate-moving-bg {
+   transform: scale(1.05);
+   background-size: var(--bg-size);
+   animation:
+      moving-bg-x calc(var(--bg-base-duration) / var(--bg-speed-x)) linear infinite,
+      moving-bg-y calc(var(--bg-base-duration) / var(--bg-speed-y)) linear infinite;
+}
