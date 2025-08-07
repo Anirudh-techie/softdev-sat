@@ -67,14 +67,13 @@ export class PageStore {
   // Constructor initializes the store and loads data from localStorage
   constructor(private _rerender: () => void) {
     this._loadFromLocalStorage();
-    this._rerender();
   }
 
   // using string types as its readable and easy to understand for pages
   page: Page = "home";
   // using array of subjects to ensure it is always 5 subjects
   // using a dictionary would be more complex and less readable
-  _subjects: Subjects = ["methods", "physics", "chemistry", "biology", "spec"];
+  subjects: Subjects = ["methods", "physics", "chemistry", "biology", "spec"];
 
   // using a boolean to track if the window is closed as this is a global state
   windowClosed: boolean = false;
@@ -114,25 +113,17 @@ export class PageStore {
   };
 
   // adding get and set modifiers for subjects to ensure it is always 5 subjects
-  get subjects(): Subjects {
-    return this._subjects;
-  }
-  set subjects(subjects: Subjects) {
+
+  set _subjects(subjects: Subjects) {
     if (subjects.length !== 5) {
       throw new Error("Subjects must be an array of 5 subjects");
     }
-    this._subjects = subjects;
-    this._rerender();
+    this.subjects = subjects;
   }
 
   // Methods to get tasks by date, calculate workload, and manage tasks
   setPage = (page: Page) => {
     this.page = page;
-    this._rerender();
-  };
-
-  setSubjects = (subjects: Subjects) => {
-    this.subjects = subjects;
     this._rerender();
   };
 
@@ -204,7 +195,7 @@ export class PageStore {
   };
 
   chooseSubjects = (subjects: Subjects) => {
-    this.subjects = subjects;
+    this._subjects = subjects;
     this._rerender();
   };
 }
