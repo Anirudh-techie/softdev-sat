@@ -26,7 +26,7 @@ function App() {
           <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-300 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
         </div>
       ) : (
-        <div className="bg-gradient-to-br from-zinc-900/95 to-zinc-800/95 backdrop-blur-md w-7xl absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[50rem] ring-1 ring-amber-400/50 shadow-2xl shadow-amber-950/50 rounded-2xl overflow-hidden">
+        <div className="bg-gradient-to-br from-zinc-900/95 to-zinc-800/95 backdrop-blur-md w-[70%] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[80%] ring-1 ring-amber-400/50 shadow-2xl shadow-amber-950/50 rounded-2xl overflow-hidden">
           <Navbar
             onMaximize={() => setWindowClosed(false)}
             onMinimize={() => setWindowClosed(true)}

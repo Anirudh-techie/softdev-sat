@@ -35,7 +35,7 @@ export function Subject(props: { subject: Subject }) {
         <div className="flex-1 h-px bg-gradient-to-r from-zinc-600 to-transparent"></div>
       </div>
       <div className="mb-8 h-[30%] overflow-y-auto">
-        {todayTasks.length === 0 ? (
+        {todayTasks.filter((x) => !x.completed).length === 0 ? (
           <div className="text-center py-8">
             <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 rounded-full flex items-center justify-center">
               <div className="w-8 h-8 bg-emerald-500 rounded-full opacity-60"></div>

@@ -15,6 +15,26 @@ export function Onboard(props: { exitPage: () => void }) {
   const { chooseSubjects, subjects } = usePageStore();
   const [selectedSubjects, setSelectedSubjects] = useState(subjects);
 
+  function getSubjectList(i: number) {
+    console.log("Called Subject list");
+    let arr = Object.entries(SUBJECT_NAMES);
+    console.log("Subjects array: ", arr);
+
+    let newSubjectList = selectedSubjects.filter(
+      (x) => x != selectedSubjects[i]
+    );
+
+    console.log("Selected Subjects Without Current Subject: ", newSubjectList);
+
+    let finalList = arr.filter(
+      ([key]) => !newSubjectList.includes(key as Subject) && key !== "home"
+    );
+
+    console.log("Final Subject List: ", finalList);
+
+    return finalList;
+  }
+
   return (
     <div className="mb-12 text-white">
       <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
@@ -44,7 +64,7 @@ export function Onboard(props: { exitPage: () => void }) {
                 }}
                 value={selectedSubjects[i]}
               >
-                {Object.entries(SUBJECT_NAMES).map(([key, value]) => (
+                {getSubjectList(i).map(([key, value]) => (
                   <option key={key} value={key}>
                     {value}
                   </option>

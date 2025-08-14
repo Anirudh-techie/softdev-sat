@@ -34,7 +34,7 @@ export type Subject =
 
 export type Page = "home" | Subject;
 
-const WORKLOAD_THRESHOLD = 1;
+const WORKLOAD_THRESHOLD = 2.2;
 
 export const SUBJECT_NAMES: Record<Page, string> = {
   home: "Home",
@@ -91,22 +91,32 @@ export class PageStore {
     const storedData = localStorage.getItem("store");
     if (storedData) {
       const data = JSON.parse(storedData);
+
       this.page = data.page || this.page;
       this.subjects = data.subjects || this.subjects;
       this.windowClosed = data.windowClosed || this.windowClosed;
       this.tasks = data.tasks || this.tasks;
-      Object.values(this.tasks).forEach((tasks) => {
-        tasks.forEach((task, i) => {
+
+      const yesterday = new Date();
+      yesterday.setHours(0, 0, 0, 0);
+
+      Object.keys(this.tasks).forEach((k) => {
+        const key = k as Subject;
+        this.tasks[key] = this.tasks[key].filter((task) => {
           task.dueDate = new Date(task.dueDate);
           task.createdAt = new Date(task.createdAt);
 
-          if (task.dueDate.getDay() < new Date().getDay()) {
+          const taskDueDate = new Date(task.dueDate);
+          taskDueDate.setHours(0, 0, 0, 0);
+
+          if (taskDueDate.getTime() <= yesterday.getTime()) {
             if (task.completed) {
-              tasks.splice(i, 1);
+              return false;
             } else {
               task.dueDate = new Date();
             }
           }
+          return true;
         });
       });
     }

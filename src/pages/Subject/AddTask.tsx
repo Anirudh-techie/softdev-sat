@@ -12,7 +12,9 @@ export function AddTask(props: { subject: Subject; exitPage: () => void }) {
   const { addTask } = usePageStore();
 
   const [taskName, setTaskName] = useState("");
-  const [dueDate, setDueDate] = useState(new Date());
+  const [dueDate, setDueDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [priority, setPriority] = useState<"low" | "medium" | "high">("medium");
   const [taskNameError, setTaskNameError] = useState("");
   const [dueDateError, setDueDateError] = useState("");
@@ -41,9 +43,10 @@ export function AddTask(props: { subject: Subject; exitPage: () => void }) {
     }
 
     // existance & type & range together
+    const dueDateObj = new Date(dueDate);
     if (
-      dueDate.getDate() < new Date().getDate() ||
-      isNaN(dueDate.getTime()) ||
+      dueDateObj.getDate() < new Date().getDate() ||
+      isNaN(dueDateObj.getTime()) ||
       !dueDate
     ) {
       setDueDateError("Due date is invalid");
@@ -52,7 +55,7 @@ export function AddTask(props: { subject: Subject; exitPage: () => void }) {
 
     const newTask = {
       id: crypto.randomUUID(),
-      dueDate: dueDate,
+      dueDate: dueDateObj,
       priority: priority,
       completed: false,
       createdAt: new Date(),
@@ -94,8 +97,10 @@ export function AddTask(props: { subject: Subject; exitPage: () => void }) {
       <InputField
         label="Due Date"
         type="date"
-        value={dueDate.toISOString().split("T")[0]}
-        onChange={(e) => setDueDate(new Date(e.target.value))}
+        value={dueDate}
+        onChange={(e) => {
+          setDueDate(e.target.value);
+        }}
         error={dueDateError}
       />
 
